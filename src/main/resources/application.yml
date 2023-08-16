@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: all-posts
+          uri: http://jsonplaceholder.typicode.com
+          predicates:
+            - Path=/blog
+          filters:
+            - SetPath=/posts
+        - id: post-by-id
+          uri: http://jsonplaceholder.typicode.com
+          predicates:
+            - Path=/blog/{id}
+          filters:
+            - SetPath=/posts/{id}
+            - AddResponseHeader=X-Response-Default-Foo, Default-Bar
